@@ -441,15 +441,27 @@
       noBtn.style.top  = pad + "px";
     }
 
-    function placeNoInitial(){
-      const z = zone.getBoundingClientRect();
-      const b = noBtn.getBoundingClientRect();
-      const pad = 14;
-      const x = Math.max(pad, Math.min(z.width - b.width - pad, Math.round(z.width * 0.68)));
-      const y = Math.max(pad, Math.min(z.height - b.height - pad, Math.round(z.height * 0.58)));
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
-    }
+   function placeNoInitial(){
+  const z = zone.getBoundingClientRect();
+  const b = noBtn.getBoundingClientRect();
+
+  const pad = 14;
+
+  // Position slightly to the right and slightly lower than YES
+  const x = Math.min(
+    z.width - b.width - pad,
+    Math.round(z.width * 0.65)
+  );
+
+  const y = Math.min(
+    z.height - b.height - pad,
+    Math.round(z.height * 0.60)
+  );
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top  = y + "px";
+}
+
 
     function growYes(){
       scale += 0.22;
