@@ -441,27 +441,60 @@
       noBtn.style.top  = pad + "px";
     }
 
-   function placeNoInitial(){
+function placeNoInitial(){
   const z = zone.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
+  const y = yesBtn.getBoundingClientRect();
+  const n = noBtn.getBoundingClientRect();
 
-  const pad = 14;
+  const pad = 14;      // boundary padding inside the zone
+  const gap = 16;      // gap between YES and NO
 
-  // Position slightly to the right and slightly lower than YES
-  const x = Math.min(
-    z.width - b.width - pad,
-    Math.round(z.width * 0.65)
-  );
+  // YES position inside the zone
+  const yesLeft = y.left - z.left;
+  const yesTop  = y.top  - z.top;
 
-  const y = Math.min(
-    z.height - b.height - pad,
-    Math.round(z.height * 0.60)
-  );
+  // Try 1: bottom-right corner of YES (like your reference), but OUTSIDE the YES
+  let x = yesLeft + y.width - n.width * 0.35;   // slightly tucked near corner
+  let yPos = yesTop + y.height - n.height * 0.35;
+
+  // Ensure NO is not inside YES: push it a bit more outward
+  x += gap;
+  yPos += gap;
+
+  // Clamp inside zone bounds
+  x = Math.max(pad, Math.min(x, z.width  - n.width  - pad));
+  yPos = Math.max(pad, Math.min(yPos, z.height - n.height - pad));
+
+  // If still overlapping YES (small screens), place it to the RIGHT of YES
+  const overlaps =
+    x < (yesLeft + y.width) &&
+    (x + n.width) > yesLeft &&
+    yPos < (yesTop + y.height) &&
+    (yPos + n.height) > yesTop;
+
+  if (overlaps) {
+    x = yesLeft + y.width + gap;
+    yPos = yesTop + (y.height - n.height) / 2;
+
+    // If right side doesn't fit, place it to the LEFT of YES
+    if (x + n.width > z.width - pad) {
+      x = yesLeft - n.width - gap;
+    }
+
+    // If left also doesn't fit, place it BELOW YES (centered)
+    if (x < pad) {
+      x = yesLeft + (y.width - n.width) / 2;
+      yPos = yesTop + y.height + gap;
+    }
+
+    // Final clamp
+    x = Math.max(pad, Math.min(x, z.width  - n.width  - pad));
+    yPos = Math.max(pad, Math.min(yPos, z.height - n.height - pad));
+  }
 
   noBtn.style.left = x + "px";
-  noBtn.style.top  = y + "px";
+  noBtn.style.top  = yPos + "px";
 }
-
 
     function growYes(){
       scale += 0.22;
