@@ -26,10 +26,17 @@
       position:relative;
     }
     h1{
-      margin:6px 0 16px;
+      margin:6px 0 10px;
       color:#b4145a;
       font-weight:900;
-      font-size: clamp(24px, 5vw, 36px);
+      font-size: clamp(22px, 5vw, 34px);
+    }
+    .sub{
+      min-height:28px;
+      margin: 0 0 14px;
+      color:#7b0b3d;
+      font-weight:800;
+      font-size: 16px;
     }
     .imgBox{
       width:120px; height:120px;
@@ -38,6 +45,7 @@
       background:#d8f2c5;
       display:grid; place-items:center;
       box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      user-select:none;
     }
     .blob{
       width:78px;height:68px;background:#fff;border-radius:40px;
@@ -60,32 +68,41 @@
     }
     .blush{position:absolute; top:38px; width:14px; height:8px; background:#ff9bb7; border-radius:10px; opacity:.85;}
     .blush.l{left:8px} .blush.r{right:8px}
+
+    .btnRow{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
     .yes{
-      width:min(360px, 82vw);
       border:none;
       border-radius:10px;
-      padding:22px 18px;
-      font-size:44px;
+      padding:18px 26px;
+      font-size:38px;
       font-weight:900;
       color:#fff;
       background:#2fa84f;
       box-shadow: 0 10px 0 rgba(0,0,0,.18);
       cursor:pointer;
+      transform-origin:center;
+      transition: transform 140ms ease;
     }
+    .yes:active{transform: scale(.98);}
     .no{
-      position:absolute;
-      left:66%;
-      top:77%;
       border:none;
-      border-radius:8px;
-      padding:8px 10px;
-      font-size:12px;
-      font-weight:800;
+      border-radius:10px;
+      padding:14px 18px;
+      font-size:18px;
+      font-weight:900;
       color:#fff;
       background:#c0392b;
       cursor:pointer;
       opacity:.95;
     }
+
     .result{
       display:none;
       margin-top:16px;
@@ -94,53 +111,109 @@
       border-radius:14px;
       color:#222;
       box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      line-height:1.35;
     }
+    .result b{color:#b4145a}
   </style>
 </head>
 <body>
   <div class="card" id="card">
-    <h1>Will you be my Valentine, Richa? 💗</h1>
-    <div class="imgBox">
+    <h1 id="title">Will you be my Valentine, Richa? 💗</h1>
+    <div class="sub" id="subText"></div>
+
+    <div class="imgBox" aria-hidden="true">
       <div class="blob">
         <div class="eye l"></div><div class="eye r"></div>
         <div class="mouth"></div>
         <div class="blush l"></div><div class="blush r"></div>
       </div>
     </div>
-    <button class="yes" id="yes">Yes</button>
-    <button class="no" id="no">I will be very sad... 🥺</button>
+
+    <div class="btnRow">
+      <button class="yes" id="yes">Yes</button>
+      <button class="no" id="no">No</button>
+    </div>
+
     <div class="result" id="result">
-      <b>Yayyyy!! 🥳💗</b><br/>
-      Now screenshot this and send it to me 😄
+      <div style="font-size:20px;font-weight:900;"><b>YAYYYY!!</b> 🥳💗</div>
+      <div style="margin-top:6px;">Now screenshot this and send it to me 😄</div>
     </div>
   </div>
 
   <script>
-    const card = document.getElementById('card');
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const result = document.getElementById('result');
+    // ✅ Change these lines if you want
+    const name = "Richa";
+    const noSentences = [
+      "Are you sure? 😭",
+      "Pleaseeee? 🥺",
+      "Richa don’t do this to me 😩",
+      "Okay I’m getting nervous 😟",
+      "Last chance… pretty please 💗",
+      "I will buy you something nice 😌",
+      "Okay fine, I’ll be EXTRA sweet 😇",
+      "You’re still saying no?? 😭😭",
+      "Alright… I’m not giving up 😤💗",
+      "Just press YES already 😍"
+    ];
+    const finalYesMessage = "Okayyy! You just made my day 😭💗";
+    const finalSubMessage = "Now screenshot this and send it to me 😄";
 
-    function moveNo(){
-      const rect = card.getBoundingClientRect();
-      const btn = noBtn.getBoundingClientRect();
-      const pad = 12;
-      const minX = pad;
-      const maxX = rect.width - btn.width - pad;
-      const minY = rect.height*0.55;
-      const maxY = rect.height*0.82;
-      const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-      const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
+    // Setup
+    document.getElementById("title").textContent = `Will you be my Valentine, ${name}? 💗`;
+
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const subText = document.getElementById("subText");
+    const result = document.getElementById("result");
+    const card = document.getElementById("card");
+
+    let noCount = 0;
+    let scale = 1;
+
+    function updateSubText(){
+      subText.textContent = noSentences[Math.min(noCount, noSentences.length - 1)];
     }
 
-    noBtn.addEventListener('mouseenter', moveNo);
-    noBtn.addEventListener('click', moveNo);
+    noBtn.addEventListener("click", () => {
+      // 1) change sentence
+      updateSubText();
 
-    yesBtn.addEventListener('click', ()=>{
-      result.style.display = 'block';
-      noBtn.style.display = 'none';
+      // 2) grow YES button
+      scale += 0.18;              // growth step (increase if you want faster)
+      const capped = Math.min(scale, 2.6); // cap so it doesn't become insane
+      yesBtn.style.transform = `scale(${capped})`;
+
+      // 3) small shake for fun
+      card.animate(
+        [{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"translateX(0)"}],
+        {duration:220, iterations:1}
+      );
+
+      noCount++;
+
+      // Optional: after many NOs, make NO smaller
+      if (noCount >= 6) {
+        noBtn.style.transform = "scale(0.92)";
+      }
+      if (noCount >= 10) {
+        noBtn.style.transform = "scale(0.84)";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      result.style.display = "block";
+      result.innerHTML = `
+        <div style="font-size:20px;font-weight:900;"><b>${finalYesMessage}</b></div>
+        <div style="margin-top:6px;">${finalSubMessage}</div>
+      `;
+      noBtn.style.display = "none";
+      subText.textContent = "";
+      yesBtn.style.transform = "scale(1)";
+
+      card.animate(
+        [{transform:"translateY(0)"},{transform:"translateY(-8px)"},{transform:"translateY(0)"}],
+        {duration:420, iterations:1}
+      );
     });
   </script>
 </body>
