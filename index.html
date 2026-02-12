@@ -197,6 +197,7 @@
       transform-origin:center;
       transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
       min-width: 280px;
+      max-width: 90vw;
       letter-spacing:.3px;
       position:relative;
       z-index:1;
@@ -498,10 +499,38 @@ function placeNoInitial(){
   noBtn.style.top  = yPos + "px";
 }
 
-    function growYes(){
-      scale += 0.22;
-      yesBtn.style.transform = `scale(${Math.min(scale, 3.2)})`;
-    }
+function clampYesToZone() {
+  const z = zone.getBoundingClientRect();
+
+  // Temporarily remove transform to get the "base" size
+  const prevTransform = yesBtn.style.transform;
+  yesBtn.style.transform = "scale(1)";
+  const base = yesBtn.getBoundingClientRect();
+  yesBtn.style.transform = prevTransform || "";
+
+  // Max scale so the YES stays inside the zone (leave some padding)
+  const pad = 24;
+  const maxScaleByWidth  = (z.width  - pad) / base.width;
+  const maxScaleByHeight = (z.height - pad) / base.height;
+
+  return Math.max(1, Math.min(maxScaleByWidth, maxScaleByHeight));
+}
+
+   function growYes() {
+  // current scale
+  let current = parseFloat(yesBtn.dataset.scale || "1");
+
+  // grow step (keep your drama 😄)
+  let next = current + 0.18;
+
+  // Clamp so it never goes outside on mobile/small screens
+  const maxScale = clampYesToZone();
+  next = Math.min(next, maxScale);
+
+  yesBtn.dataset.scale = String(next);
+  yesBtn.style.transform = `scale(${next})`;
+  yesBtn.style.transformOrigin = "center center";
+}
 
     function shake(){
       zone.animate(
