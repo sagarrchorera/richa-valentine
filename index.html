@@ -398,6 +398,8 @@
     const mainScreen  = document.getElementById("mainScreen");
     const finalScreen = document.getElementById("finalScreen");
     const confetti = document.getElementById("confetti");
+    let lastActionWasNo = false;
+
 
     // Flow (confirmed)
     const noTexts = ["No","Are you positive? 😳","Really? 🥺","Think again… 😭","Please?? 💗","Don’t do this 😩","Come onnn 😭😭","Okay last time… 🙈"];
@@ -590,6 +592,7 @@ function placeNoInitial(){
 
     // Actions (pointerup works on iPhone)
     async function onNo(){
+      lastActionWasNo = true;
       if(music.paused) await startMusic();
 
       if(evading){
@@ -613,12 +616,20 @@ function placeNoInitial(){
       }
     }
 
-    async function onYes(){
-      if(music.paused) await startMusic();
-      mainScreen.style.display = "none";
-      finalScreen.style.display = "block";
-      burstConfetti();
-    }
+  async function onYes(){
+
+  // Prevent accidental YES after NO bounce (mobile fix)
+  if(lastActionWasNo){
+    lastActionWasNo = false;
+    return;
+  }
+
+  if(music.paused) await startMusic();
+
+  mainScreen.style.display = "none";
+  finalScreen.style.display = "block";
+  burstConfetti();
+}
 
     noBtn.addEventListener("pointerup", onNo);
     yesBtn.addEventListener("pointerup", onYes);
