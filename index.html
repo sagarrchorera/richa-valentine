@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Valentine?</title>
+  <title>Will you be my Valentine? 💗</title>
   <style>
     *{box-sizing:border-box}
     body{
@@ -12,306 +12,322 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.35), rgba(255,255,255,0) 45%),
-        radial-gradient(circle at 80% 25%, rgba(255,255,255,.28), rgba(255,255,255,0) 40%),
-        radial-gradient(circle at 30% 20%, #ffd6e5, #f4a3c0);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.34), rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 82% 22%, rgba(255,255,255,.26), rgba(255,255,255,0) 40%),
+        radial-gradient(circle at 35% 25%, #ffd9e8, #f4a3c0);
       overflow:hidden;
     }
-    .bgHeart{
+
+    /* subtle hearts row like reference */
+    .heartsRow{
       position:fixed;
-      font-size:18px;
-      opacity:.28;
-      animation: floatUp linear infinite;
+      bottom:24px;
+      left:0;
+      width:100%;
+      text-align:center;
+      opacity:.18;
+      letter-spacing:12px;
+      font-size:14px;
       user-select:none;
       pointer-events:none;
     }
-    @keyframes floatUp{
-      from{ transform: translateY(30vh) translateX(0) scale(.9); }
-      to{ transform: translateY(-120vh) translateX(40px) scale(1.2); }
+
+    .screen{
+      width:min(860px, 92vw);
+      text-align:center;
+      padding:22px 18px 18px;
     }
 
-    .card{
-      width:min(600px, 92vw);
-      padding:28px 22px 26px;
-      border-radius:24px;
-      background: rgba(255,255,255,.14);
-      box-shadow: 0 18px 60px rgba(0,0,0,.18);
-      text-align:center;
-      position:relative;
-      backdrop-filter: blur(10px);
-      border:1px solid rgba(255,255,255,.22);
-    }
     h1{
-      margin:6px 0 8px;
-      color:#b4145a;
+      margin:0 0 18px;
       font-weight:1000;
-      font-size: clamp(22px, 5vw, 38px);
-      letter-spacing:.2px;
+      color:#b4145a;
+      font-size: clamp(26px, 5.2vw, 56px);
       text-shadow: 0 2px 0 rgba(255,255,255,.35);
     }
-    .sub{
-      min-height:28px;
-      margin:0 0 16px;
-      color:#7b0b3d;
-      font-weight:900;
-      font-size:16px;
-    }
 
-    .imgWrap{
-      width:132px;
-      height:132px;
-      margin:0 auto 18px;
+    .media{
+      width:170px;
+      height:150px;
+      margin:0 auto 20px;
       display:grid;
       place-items:center;
       position:relative;
-      animation: bob 2.6s ease-in-out infinite;
+      animation: bob 2.8s ease-in-out infinite;
     }
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-    .ring{
-      position:absolute;
-      inset:-6px;
-      border-radius:24px;
-      background: conic-gradient(from 180deg, #ff5aa5, #ffcfdd, #ff5aa5);
-      opacity:.95;
-      animation: spin 3.2s linear infinite;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
 
-    .imgBox{
-      width:120px;
-      height:120px;
-      border-radius:22px;
-      background:#fff;
-      display:grid;
-      place-items:center;
-      box-shadow: 0 10px 22px rgba(0,0,0,.12);
-      overflow:hidden;
-      position:relative;
-    }
-    .imgBox img{
-      width:112px;
-      height:112px;
+    .photo{
+      width:118px;
+      height:118px;
+      border-radius:16px;
       object-fit:cover;
-      border-radius:18px;
-      display:block;
+      box-shadow: 0 14px 30px rgba(0,0,0,.18);
+      border: 4px solid rgba(255,255,255,.60);
+      background:#fff;
     }
-    .imgBox:before,.imgBox:after{
+
+    /* tiny hearts on the image */
+    .media:before,.media:after{
       content:"💗";
       position:absolute;
-      font-size:16px;
+      font-size:18px;
       opacity:.85;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,.18));
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.16));
       animation: pop 1.6s ease-in-out infinite;
+      user-select:none;
+      pointer-events:none;
     }
-    .imgBox:before{left:10px; top:10px; transform:rotate(-12deg)}
-    .imgBox:after{right:10px; bottom:10px; transform:rotate(12deg); animation-delay:.35s}
-    @keyframes pop{0%,100%{transform:translateY(0) scale(1) rotate(0deg)}50%{transform:translateY(-6px) scale(1.12) rotate(0deg)}}
+    .media:before{left:12px; top:10px; transform:rotate(-12deg)}
+    .media:after{right:14px; bottom:14px; transform:rotate(12deg); animation-delay:.35s}
+    @keyframes pop{0%,100%{transform:translateY(0) scale(1) rotate(0deg)}50%{transform:translateY(-6px) scale(1.14) rotate(0deg)}}
 
     .btnZone{
       position:relative;
-      height:210px;
+      width:min(720px, 92vw);
+      height:240px;
+      margin: 0 auto;
       display:flex;
       align-items:center;
       justify-content:center;
-      margin-top:10px;
     }
+
     .yes{
       border:none;
       border-radius:14px;
-      padding:22px 40px;
-      font-size:46px;
+      padding:26px 62px;
+      font-size:52px;
       font-weight:1000;
       color:#fff;
       background: linear-gradient(180deg, #33c865, #1f9f4b);
-      box-shadow: 0 14px 0 rgba(0,0,0,.18);
+      box-shadow: 0 18px 0 rgba(0,0,0,.18);
       cursor:pointer;
       transform-origin:center;
-      transition: transform 140ms ease, filter 140ms ease;
-      z-index:1;
-      min-width:290px;
-      letter-spacing:.3px;
+      transition: transform 160ms ease, filter 160ms ease;
+      min-width: 300px;
     }
     .yes:hover{filter:brightness(1.02)}
-    .yes:active{transform:scale(.985); box-shadow:0 12px 0 rgba(0,0,0,.18)}
+    .yes:active{transform:scale(.985)}
 
     .no{
       position:absolute;
       border:none;
       border-radius:12px;
-      padding:10px 14px;
-      font-size:14px;
+      padding:12px 16px;
+      font-size:16px;
       font-weight:1000;
       color:#fff;
       background: linear-gradient(180deg, #e24a4a, #b92e2e);
       cursor:pointer;
       opacity:.96;
-      z-index:2;
-      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+      box-shadow: 0 14px 28px rgba(0,0,0,.16);
       white-space:nowrap;
+      transition: transform 120ms ease;
     }
 
-    .result{
-      display:none;
-      margin-top:14px;
-      padding:14px 16px;
-      background: rgba(255,255,255,.92);
-      border-radius:16px;
-      color:#222;
-      box-shadow: 0 10px 22px rgba(0,0,0,.10);
-      line-height:1.35;
-    }
-    .result b{color:#b4145a}
-
+    /* confetti layer */
     .confetti{
       position:fixed; left:0; top:0;
       width:100%; height:100%;
       pointer-events:none;
       overflow:hidden;
       display:none;
+      z-index:5;
     }
     .confetti span{
       position:absolute;
       top:-10px;
-      font-size:18px;
+      font-size:20px;
       animation: fall linear forwards;
       opacity:.95;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,.12));
     }
     @keyframes fall{to{transform:translateY(110vh) rotate(540deg); opacity:1}}
 
-    .tiny{font-size:12px; opacity:.7; margin-top:10px}
+    .subline{
+      margin-top:10px;
+      font-size:18px;
+      font-weight:900;
+      color:#7b0b3d;
+      opacity:.85;
+      min-height:26px;
+    }
+
+    /* Final YES screen */
+    .finalWrap{
+      display:none;
+      text-align:center;
+      padding:26px 18px 18px;
+    }
+    .finalTitle{
+      margin:0 0 18px;
+      font-weight:1000;
+      color:#b4145a;
+      font-size: clamp(26px, 5.2vw, 56px);
+      text-shadow: 0 2px 0 rgba(255,255,255,.35);
+    }
+    .finalImg{
+      width:210px;
+      height:160px;
+      margin:0 auto 14px;
+      display:grid;
+      place-items:center;
+    }
+    .finalImg img{
+      width:140px;
+      height:140px;
+      border-radius:18px;
+      object-fit:cover;
+      box-shadow: 0 16px 34px rgba(0,0,0,.18);
+      border: 4px solid rgba(255,255,255,.6);
+      background:#fff;
+    }
+    .finalText{
+      font-size:20px;
+      font-weight:900;
+      color:#7b0b3d;
+      opacity:.9;
+    }
   </style>
 </head>
 <body>
   <div class="confetti" id="confetti"></div>
 
-  <div class="card" id="card">
-    <h1 id="title">Will you be my Valentine, Richa? 💗</h1>
-    <div class="sub" id="subText">Just press YES already 😍</div>
+  <div class="screen" id="mainScreen">
+    <h1 id="qTitle">Will you be my Valentine, Richa? 💗</h1>
 
-    <div class="imgWrap" aria-hidden="true">
-      <div class="ring"></div>
-      <div class="imgBox">
-        <img id="centerImg" src="richa.jpg" alt="Richa" />
-      </div>
+    <div class="media">
+      <img class="photo" src="richa.jpg" alt="Richa" />
     </div>
 
-    <div class="btnZone" id="btnZone">
-      <button class="yes" id="yes">Yes</button>
-      <button class="no" id="no">No</button>
+    <div class="btnZone" id="zone">
+      <button class="yes" id="yesBtn">Yes</button>
+      <button class="no" id="noBtn">No</button>
     </div>
 
-    <div class="result" id="result"></div>
-    <div class="tiny">P.S. Every NO makes YES stronger 😌💗</div>
+    <div class="subline" id="hintLine"></div>
   </div>
 
-  <script>
-    const name = "Richa";
-    const noSentences = [
-      "Are you sure? 😭",
-      "Pleaseeee? 🥺",
-      "Richa don’t do this to me 😩",
-      "Okay I’m getting nervous 😟",
-      "Last chance… pretty please 💗",
-      "I’ll get you your favorite treat 😌",
-      "Okay fine, I’ll be EXTRA sweet 😇",
-      "You’re still saying no?? 😭😭",
-      "Alright… I’m not giving up 😤💗",
-      "Just press YES already 😍"
-    ];
-    const finalYesTitle = "YAYYYY!! 🥳💗";
-    const finalYesText  = "Now screenshot this and send it to me 😄";
+  <div class="finalWrap" id="finalScreen">
+    <div class="finalTitle">Knew you would say yes! 🎉</div>
+    <div class="finalImg"><img src="richa.jpg" alt="Richa" /></div>
+    <div class="finalText">You just made me the happiest person! 💞</div>
+  </div>
 
-    const titleEl = document.getElementById("title");
-    const subText = document.getElementById("subText");
-    const yesBtn  = document.getElementById("yes");
-    const noBtn   = document.getElementById("no");
-    const result  = document.getElementById("result");
-    const card    = document.getElementById("card");
-    const zone    = document.getElementById("btnZone");
+  <div class="heartsRow">♥ ♥ ♥ ♥ ♥ ♥</div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const zone   = document.getElementById("zone");
+    const hint   = document.getElementById("hintLine");
+
+    const mainScreen  = document.getElementById("mainScreen");
+    const finalScreen = document.getElementById("finalScreen");
     const confetti = document.getElementById("confetti");
 
-    titleEl.textContent = `Will you be my Valentine, ${name}? 💗`;
+    // Match the reference flow: NO text changes each time.
+    const noTexts = [
+      "No",
+      "Are you positive? 😳",
+      "Really? 🥺",
+      "Think again… 😭",
+      "Please?? 💗",
+      "Don’t do this 😩",
+      "Come onnn 😭😭",
+      "Okay last time… 🙈"
+    ];
 
-    (function addBackgroundHearts(){
-      const hearts = ["💗","💖","💘","💞"];
-      for(let i=0;i<18;i++){
-        const el = document.createElement("div");
-        el.className = "bgHeart";
-        el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
-        el.style.left = Math.floor(Math.random()*101) + "vw";
-        el.style.animationDuration = (6 + Math.random()*8).toFixed(2) + "s";
-        el.style.animationDelay = (-Math.random()*10).toFixed(2) + "s";
-        el.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
-        document.body.appendChild(el);
-      }
-    })();
+    // After this many NOs, "Please??" runs away on hover like your last screenshot
+    const evadeStageAt = 6;
 
     let noCount = 0;
     let scale = 1;
 
-    function moveNoButton(){
-      const zoneRect = zone.getBoundingClientRect();
-      const noRect   = noBtn.getBoundingClientRect();
-      const pad = 10;
-      const maxX = zoneRect.width  - noRect.width  - pad;
-      const maxY = zoneRect.height - noRect.height - pad;
-      const x = Math.floor(Math.random() * (maxX - pad + 1)) + pad;
-      const y = Math.floor(Math.random() * (maxY - pad + 1)) + pad;
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
+    function rand(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+    function moveNo(){
+      const z = zone.getBoundingClientRect();
+      const b = noBtn.getBoundingClientRect();
+      const pad = 12;
+      const maxX = z.width  - b.width  - pad;
+      const maxY = z.height - b.height - pad;
+      noBtn.style.left = rand(pad, Math.max(pad, maxX)) + "px";
+      noBtn.style.top  = rand(pad, Math.max(pad, maxY)) + "px";
     }
 
-    function updateSentence(){
-      const i = Math.min(noCount, noSentences.length - 1);
-      subText.textContent = noSentences[i];
+    function growYes(){
+      scale += 0.22;                  // growth speed like reference
+      yesBtn.style.transform = `scale(${Math.min(scale, 3.2)})`;
     }
 
     function shake(){
-      card.animate(
+      zone.animate(
         [{transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}],
         {duration:220, iterations:1}
       );
+    }
+
+    function updateNoText(){
+      const t = noTexts[Math.min(noCount, noTexts.length - 1)];
+      noBtn.textContent = t;
+    }
+
+    function enableEvade(){
+      // Make it run away when cursor comes close (mouseenter + touch)
+      const evade = (e)=>{
+        e.preventDefault?.();
+        noBtn.style.transform = "scale(0.98)";
+        moveNo();
+      };
+      noBtn.addEventListener("mouseenter", evade);
+      noBtn.addEventListener("mousemove", evade);
+      noBtn.addEventListener("touchstart", evade, {passive:false});
+      hint.textContent = "Try catching the NO… 😈";
     }
 
     function burstConfetti(){
       confetti.style.display = "block";
       confetti.innerHTML = "";
       const pieces = ["💗","💖","✨","🎉","💘","🌸"];
-      const count = 40;
-      for(let i=0;i<count;i++){
+      for(let i=0;i<42;i++){
         const s = document.createElement("span");
         s.textContent = pieces[Math.floor(Math.random()*pieces.length)];
-        s.style.left = Math.floor(Math.random()*101) + "vw";
+        s.style.left = rand(0, 100) + "vw";
         s.style.animationDuration = (1.6 + Math.random()*1.6).toFixed(2) + "s";
-        s.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
+        s.style.fontSize = rand(14, 24) + "px";
         confetti.appendChild(s);
       }
       setTimeout(()=>{ confetti.style.display="none"; confetti.innerHTML=""; }, 2600);
     }
 
-    moveNoButton();
+    // initial NO position (like reference: starts near YES)
+    noBtn.style.left = "62%";
+    noBtn.style.top  = "52%";
 
-    noBtn.addEventListener("click", () => {
-      updateSentence();
-      scale += 0.18;
-      yesBtn.style.transform = `scale(${Math.min(scale, 2.9)})`;
-      moveNoButton();
+    noBtn.addEventListener("click", ()=>{
+      updateNoText();
+      growYes();
+      moveNo();
       shake();
+
+      // little hint line like “If you say no, I’ll be sad...”
+      if(noCount === 2) hint.textContent = "If you say no, I’ll be really sad… 🥺";
+      if(noCount === 4) hint.textContent = "Okay… I’m not giving up 😤💗";
+
       noCount++;
+
+      if(noCount === evadeStageAt){
+        noBtn.textContent = "Please?? 🥺";
+        enableEvade();
+      }
     });
 
-    yesBtn.addEventListener("click", () => {
-      result.style.display = "block";
-      result.innerHTML = `
-        <div style="font-size:22px;font-weight:1000;"><b>${finalYesTitle}</b></div>
-        <div style="margin-top:6px;">${finalYesText}</div>
-      `;
-      noBtn.style.display = "none";
-      subText.textContent = "";
-      card.animate([{transform:"translateY(0)"},{transform:"translateY(-10px)"},{transform:"translateY(0)"}], {duration:420});
+    yesBtn.addEventListener("click", ()=>{
+      mainScreen.style.display = "none";
+      finalScreen.style.display = "block";
       burstConfetti();
     });
   </script>
