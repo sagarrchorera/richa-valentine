@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Richa 💗</title>
 
   <style>
@@ -16,8 +16,10 @@
       --glass2: rgba(255,255,255,.10);
       --stroke: rgba(255,255,255,.28);
       --shadow: 0 22px 70px rgba(0,0,0,.18);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
+    html, body{ height:100%; }
     body{
       margin:0;
       min-height:100vh;
@@ -30,6 +32,8 @@
         radial-gradient(circle at 82% 22%, rgba(255,255,255,.28), rgba(255,255,255,0) 40%),
         radial-gradient(circle at 35% 25%, var(--pink1), var(--pink2));
       overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     /* soft sparkle dots */
@@ -59,15 +63,15 @@
     }
 
     .shell{
-      width:min(940px, 92vw);
-      padding: 22px 14px 18px;
+      width:min(940px, 94vw);
+      padding: 22px 14px calc(18px + var(--safe-bottom));
       position:relative;
     }
 
     .card{
-      width:min(860px, 92vw);
+      width:min(860px, 94vw);
       margin:0 auto;
-      padding: 26px 22px 18px;
+      padding: 22px 18px 16px;
       border-radius: 30px;
       background: linear-gradient(180deg, var(--glass1), var(--glass2));
       border: 1px solid var(--stroke);
@@ -89,18 +93,19 @@
     }
 
     h1{
-      margin: 8px 0 14px;
+      margin: 8px 0 12px;
       font-weight: 1000;
       color: var(--magenta);
-      font-size: clamp(26px, 5.2vw, 56px);
+      font-size: clamp(22px, 6vw, 56px);
       letter-spacing: .2px;
       text-shadow: 0 2px 0 rgba(255,255,255,.35);
+      padding: 0 6px;
     }
 
     .media{
       width: 220px;
       height: 190px;
-      margin: 0 auto 8px;
+      margin: 0 auto 6px;
       display:grid;
       place-items:center;
       position:relative;
@@ -162,11 +167,11 @@
     .media:after{right:26px; bottom:20px; transform:rotate(12deg); animation-delay:.35s}
     @keyframes pop{0%,100%{transform:translateY(0) scale(1) rotate(0deg)}50%{transform:translateY(-7px) scale(1.18) rotate(0deg)}}
 
-    /* ===== BUTTON ZONE (flow stays same) ===== */
+    /* ===== BUTTON ZONE ===== */
     .btnZone{
       position:relative;
-      width:min(760px, 92vw);
-      height: 280px; /* extra space so hint never overlaps */
+      width:min(760px, 94vw);
+      height: 280px;
       margin: 6px auto 0;
       display:flex;
       align-items:center;
@@ -176,8 +181,8 @@
     .yes{
       border:none;
       border-radius: 18px;
-      padding: 26px 66px;
-      font-size: clamp(38px, 4.6vw, 56px);
+      padding: 24px 62px;
+      font-size: clamp(34px, 7vw, 56px);
       font-weight: 1000;
       color:#fff;
       background: linear-gradient(180deg, #37d36c, #1f9f4b);
@@ -187,10 +192,11 @@
       cursor:pointer;
       transform-origin:center;
       transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
-      min-width: 320px;
+      min-width: 280px;
       letter-spacing:.3px;
       position:relative;
       z-index:1;
+      touch-action: manipulation;
     }
     .yes:before{
       content:"";
@@ -208,12 +214,11 @@
         0 18px 36px rgba(0,0,0,.12);
     }
 
-    /* NO will NEVER overlap YES initially: place it to the right */
     .no{
       position:absolute;
       border:none;
       border-radius: 14px;
-      padding: 12px 16px;
+      padding: 14px 18px; /* bigger tap target */
       font-size: 16px;
       font-weight: 1000;
       color:#fff;
@@ -226,11 +231,12 @@
       white-space:nowrap;
       transition: transform 120ms ease, filter 120ms ease;
       z-index:2;
+      touch-action: manipulation;
     }
     .no:hover{ filter: brightness(1.03); }
     .no:active{ transform: scale(.98); }
 
-    /* Hint always below the button area (never overlaps) */
+    /* Hint always below */
     .subline{
       margin: 10px 0 6px;
       font-size: 18px;
@@ -238,6 +244,7 @@
       color: var(--magenta2);
       opacity:.82;
       min-height: 28px;
+      padding: 0 8px;
     }
 
     .heartsRow{
@@ -273,22 +280,24 @@
       margin: 6px 0 16px;
       font-weight:1000;
       color: var(--magenta);
-      font-size: clamp(26px, 5.2vw, 56px);
+      font-size: clamp(22px, 6vw, 56px);
       text-shadow: 0 2px 0 rgba(255,255,255,.35);
+      padding: 0 6px;
     }
     .finalText{
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
       color: var(--magenta2);
       opacity:.88;
       margin-bottom: 8px;
+      padding: 0 10px;
     }
 
     /* Music button */
     .musicBtn{
       position: fixed;
-      right: 18px;
-      bottom: 18px;
+      right: 14px;
+      bottom: calc(14px + var(--safe-bottom));
       width: 52px;
       height: 52px;
       border-radius: 16px;
@@ -301,6 +310,7 @@
       place-items:center;
       z-index:20;
       user-select:none;
+      touch-action: manipulation;
     }
     .musicBtn:active{ transform: scale(.98); }
     .musicIcon{ font-size:22px; }
@@ -314,11 +324,19 @@
     .musicBtn.on .musicDot{ display:block; }
     .musicBtn.off .musicDot{ display:block; background:#e74c3c; box-shadow:0 0 0 3px rgba(231,76,60,.22); }
 
+    /* Smaller screens */
     @media (max-width:520px){
-      .btnZone{ height: 260px; }
-      .yes{ min-width: 280px; padding: 22px 52px; }
-      .media{ height: 180px; }
-      .photoFrame{ width: 140px; height: 140px; }
+      .shell{ padding: 16px 10px calc(16px + var(--safe-bottom)); }
+      .card{ padding: 18px 14px 14px; border-radius: 26px; }
+      .btnZone{ height: 250px; }
+      .media{ width: 210px; height: 175px; }
+      .photoFrame{ width: 138px; height: 138px; border-radius: 26px; }
+      .yes{ min-width: 250px; padding: 22px 50px; }
+      .subline{ font-size: 16px; }
+    }
+    @media (max-width:380px){
+      .btnZone{ height: 235px; }
+      .yes{ min-width: 230px; }
     }
   </style>
 </head>
@@ -328,7 +346,6 @@
 
   <!-- music -->
   <audio id="bgMusic" loop preload="auto">
-    <!-- Put music.mp3 in the same GitHub folder -->
     <source src="music.mp3" type="audio/mpeg">
   </audio>
   <button class="musicBtn off" id="musicBtn" aria-label="Music">
@@ -377,19 +394,20 @@
     // Background floating hearts
     (function addFloatingHearts(){
       const hearts = ["💗","💖","💘","💞"];
-      for(let i=0;i<16;i++){
+      const count = (window.innerWidth < 520) ? 10 : 16;
+      for(let i=0;i<count;i++){
         const el = document.createElement("div");
         el.className = "float-heart";
         el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
         el.style.left = Math.floor(Math.random()*101) + "vw";
-        el.style.animationDuration = (6 + Math.random()*8).toFixed(2) + "s";
+        el.style.animationDuration = (7 + Math.random()*9).toFixed(2) + "s";
         el.style.animationDelay = (-Math.random()*10).toFixed(2) + "s";
         el.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
         document.body.appendChild(el);
       }
     })();
 
-    // ===== Flow logic (same as the working one) =====
+    // ===== Flow logic (same) =====
     const yesBtn = document.getElementById("yesBtn");
     const noBtn  = document.getElementById("noBtn");
     const zone   = document.getElementById("zone");
@@ -412,16 +430,16 @@
     const evadeStageAt = 5; // 4-5 clicks then it starts running away
     let noCount = 0;
     let scale = 1;
+    let evading = false;
 
     function rand(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
 
     function safeMoveNo(){
-      // Keep NO away from the middle area where YES sits (avoid overlap)
       const z = zone.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
       const pad = 14;
 
-      // Define "no-fly zone" around center where YES is (approx)
+      // "No-fly zone" around YES in center
       const centerX = z.width/2;
       const centerY = z.height/2;
       const noFlyW = Math.min(420, z.width * 0.62);
@@ -434,7 +452,6 @@
       const maxX = z.width  - b.width  - pad;
       const maxY = z.height - b.height - pad;
 
-      // Try a few random positions that avoid the no-fly zone
       for(let tries=0; tries<18; tries++){
         const x = rand(pad, Math.max(pad, maxX));
         const y = rand(pad, Math.max(pad, maxY));
@@ -445,7 +462,6 @@
           return;
         }
       }
-      // fallback
       noBtn.style.left = Math.max(pad, maxX) + "px";
       noBtn.style.top  = pad + "px";
     }
@@ -468,14 +484,21 @@
     }
 
     function enableEvade(){
-      const evade = (e)=>{
-        e.preventDefault?.();
-        safeMoveNo();
-      };
-      noBtn.addEventListener("mouseenter", evade);
-      noBtn.addEventListener("mousemove", evade);
-      noBtn.addEventListener("touchstart", evade, {passive:false});
+      if(evading) return;
+      evading = true;
       hint.textContent = "Try catching the NO… 😈";
+
+      // Desktop: move away when cursor gets close
+      noBtn.addEventListener("mouseenter", safeMoveNo);
+      noBtn.addEventListener("mousemove", safeMoveNo);
+
+      // Mobile: move away as finger tries to tap
+      noBtn.addEventListener("pointerdown", (e)=>{
+        if(e.pointerType === "touch"){
+          e.preventDefault();
+          safeMoveNo();
+        }
+      }, {passive:false});
     }
 
     function burstConfetti(){
@@ -497,21 +520,29 @@
     noBtn.style.left = "72%";
     noBtn.style.top  = "52%";
 
-    // ===== Music (starts on first interaction due to browser rules) =====
+    // ===== Music =====
     const music = document.getElementById("bgMusic");
     const musicBtn = document.getElementById("musicBtn");
-    let musicOn = False = false;
+
+    async function setMusicUI(isOn){
+      if(isOn){
+        musicBtn.classList.remove("off");
+        musicBtn.classList.add("on");
+        musicBtn.querySelector(".musicIcon").textContent = "🎵";
+      }else{
+        musicBtn.classList.remove("on");
+        musicBtn.classList.add("off");
+        musicBtn.querySelector(".musicIcon").textContent = "🔊";
+      }
+    }
 
     async function tryStartMusic(){
       if(!music) return;
       try{
         await music.play();
-        musicOn = true;
-        musicBtn.classList.remove("off");
-        musicBtn.classList.add("on");
-        musicBtn.querySelector(".musicIcon").textContent = "🎵";
+        setMusicUI(true);
       }catch(e){
-        // autoplay blocked; user can tap the music button
+        // autoplay blocked until user taps the music button
       }
     }
 
@@ -519,22 +550,24 @@
       try{
         if(music.paused){
           await music.play();
-          musicOn = true;
-          musicBtn.classList.remove("off");
-          musicBtn.classList.add("on");
-          musicBtn.querySelector(".musicIcon").textContent = "🎵";
+          setMusicUI(true);
         }else{
           music.pause();
-          musicOn = false;
-          musicBtn.classList.remove("on");
-          musicBtn.classList.add("off");
-          musicBtn.querySelector(".musicIcon").textContent = "🔊";
+          setMusicUI(false);
         }
       }catch(e){}
     });
 
+    // NO click flow
     noBtn.addEventListener("click", async ()=>{
-      tryStartMusic();
+      await tryStartMusic();
+
+      if(evading){
+        // Once evading, clicking NO shouldn't be possible; just move away.
+        safeMoveNo();
+        return;
+      }
+
       updateNoText();
       growYes();
       safeMoveNo();
@@ -551,11 +584,19 @@
       }
     });
 
+    // YES click
     yesBtn.addEventListener("click", async ()=>{
-      tryStartMusic();
+      await tryStartMusic();
       mainScreen.style.display = "none";
       finalScreen.style.display = "block";
       burstConfetti();
+    });
+
+    // Prevent iOS double-tap zoom on buttons
+    [yesBtn, noBtn, musicBtn].forEach(btn=>{
+      btn.addEventListener("touchend", (e)=>{
+        e.preventDefault();
+      }, {passive:false});
     });
   </script>
 </body>
